@@ -28,7 +28,7 @@ public class MenuPanel extends JPanel{
 		JLabel label = new JLabel(reSize(new ImageIcon(getClass().getResource("/resources/lmsLogo.jpg"))));
 		add(label, grid.insertComponent(0, 5, 5, 0.8));
 		
-		JButton newGame = new JButton("New Game");
+		JButton newGame = new JButton("Tutorial");
 		newGame.setBorderPainted(false);
 		newGame.setFont(new Font("Agency FB", Font.BOLD, 40));
 		newGame.setBackground(new Color(110, 34, 0));

@@ -11,7 +11,7 @@ public class MainWindow extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private MenuPanel menuPanel;
 	private CardLayout cardLayout;
-	private NewGamePanel gamePanel;
+	private TutorialPanel gamePanel;
 	
 	public MainWindow(Control control) {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -22,7 +22,7 @@ public class MainWindow extends JFrame{
 		setLayout(cardLayout);
 		
 		menuPanel = new MenuPanel(control);
-		gamePanel = new NewGamePanel();
+		gamePanel = new TutorialPanel();
 		add(menuPanel,"MainMenu");
 		add(gamePanel,"NewGame");
 		setVisible(true);
