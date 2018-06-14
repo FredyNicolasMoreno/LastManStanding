@@ -1,6 +1,7 @@
 package views;
 
 import java.awt.CardLayout;
+import java.awt.Rectangle;
 
 import javax.swing.JFrame;
 
@@ -13,23 +14,26 @@ public class MainWindow extends JFrame{
 	private CardLayout cardLayout;
 	private TutorialPanel gamePanel;
 	
-	public MainWindow(Control control) {
+	public MainWindow(Rectangle player, Control control) {
+		this.addKeyListener(control);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setExtendedState(MAXIMIZED_BOTH);
 		setTitle("LastManStanding");
 
-		cardLayout = new CardLayout();
-		setLayout(cardLayout);
-		
 		menuPanel = new MenuPanel(control);
-		gamePanel = new TutorialPanel();
-		add(menuPanel,"MainMenu");
-		add(gamePanel,"NewGame");
+
+		add(menuPanel);
+		
 		setVisible(true);
 	}
 	
-	public void newGame() {
-		cardLayout.show(this.getContentPane(), "NewGame");
+//	public void newGame() {
+//		cardLayout.show(this.getContentPane(), "NewGame");
+//	}
+	
+	public void repaintWIndow(Rectangle player) {
+		gamePanel.repaintAll(player);
+		repaint();
 	}
 	
 }

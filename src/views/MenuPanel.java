@@ -19,7 +19,7 @@ public class MenuPanel extends JPanel{
 	private GridSystem grid;
 
 	public MenuPanel(Control control) {
-		
+		this.addKeyListener(control);
 		setBackground(Color.BLACK);
 		
 		grid = new GridSystem(this);
@@ -52,7 +52,6 @@ public class MenuPanel extends JPanel{
 		add(settings, grid.insertComponent(1, 9, 0, 1));
 		
 		
-		setVisible(true);
 	}
 	
 	public Icon reSize(ImageIcon imagen){
