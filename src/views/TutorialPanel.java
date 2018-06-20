@@ -16,7 +16,7 @@ public class TutorialPanel extends JFrame{
 	private GridSystem gridSystem;
 	private TutorialPanelGameZone gameZone;
 	
-	public TutorialPanel(Rectangle player, Control control) {
+	public TutorialPanel(Rectangle player, Rectangle gun, Rectangle bullet, Control control) {
 		
 		setExtendedState(MAXIMIZED_BOTH);
 		
@@ -42,14 +42,14 @@ public class TutorialPanel extends JFrame{
 		
 		panel.add(pane, gridSystem.insertComponent(0, 0, 12, 0.1));
 		
-		gameZone = new TutorialPanelGameZone(player, control);
+		gameZone = new TutorialPanelGameZone(player, gun, bullet, control);
 		panel.add(gameZone, gridSystem.insertComponent(1, 0, 12, 1));
 		
 		add(panel);
 	}
 	
-	public void repaintAll(Rectangle player) {
-		gameZone.setPlayer(player);
+	public void repaintAll(Rectangle player, Rectangle gun, Rectangle bullet) {
+		gameZone.setAll(player, gun, bullet);
 		repaint();
 		
 	}

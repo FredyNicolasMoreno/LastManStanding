@@ -18,10 +18,13 @@ public class Player {
 		player.setLocation(player.x+50, player.y);
 	}
 	public void moveLeft() {
-		player.setLocation(player.x - 50, player.y);
+		player.setLocation(player.x-50, player.y);
 	}
 	public void moveUp() {
 		player.setLocation(player.x, player.y - 50);
+	}
+	public void moveDown() {
+		player.setLocation(player.x, player.y + 50);
 	}
 
 	public void setPlayer(Rectangle player) {

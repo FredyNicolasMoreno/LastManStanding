@@ -13,11 +13,15 @@ public class TutorialPanelGameZone extends JPanel{
 	private static final long serialVersionUID = 1L;
 
 	private Rectangle player;
+	private Rectangle bullet;
+	private Rectangle guns;
 	
-	public TutorialPanelGameZone(Rectangle playerLL, Control control) {
+	public TutorialPanelGameZone(Rectangle playerLL, Rectangle gun, Rectangle bullets,Control control) {
 		this.addKeyListener(control);
 		setBackground(Color.BLACK);
 		player = new Rectangle(playerLL.x, playerLL.y, playerLL.width, playerLL.height);
+		guns = new Rectangle(gun.x, gun.y, gun.width, gun.height);
+		bullets = new Rectangle(bullets.x, bullets.y, bullets.width, bullets.height);
 	}
 	
 	public void paint(Graphics g) {
@@ -28,14 +32,18 @@ public class TutorialPanelGameZone extends JPanel{
 		g.setColor(Color.YELLOW);
 		g.fillRect(player.x, player.y, (int)player.width, (int)player.height);
 		
+		g.setColor(Color.WHITE);
+		g.fillRect(bullet.x, bullet.y, (int)bullet.width, (int)bullet.height);
+		
 		g.setColor(Color.RED);
-		g.fillRect(800, 320, 30, 30);
+		g.fillRect(guns.x, guns.y, (int)guns.width, (int)guns.height);
 	}
 	
-	public void setPlayer(Rectangle playerLL) {
+	public void setAll(Rectangle playerLL, Rectangle gun, Rectangle bullets) {
 		this.player = playerLL;
+		this.guns = gun;
+		this.bullet = bullets;
 		repaint();
 		revalidate();
 	}
-	
 }

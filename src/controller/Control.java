@@ -5,22 +5,24 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import models.Player;
+import models.GameManager;
 import views.MainWindow;
 import views.TutorialPanel;
 
 public class Control implements ActionListener, KeyListener{
 
 	private MainWindow mainWindow;
-	private Player player;
 	private TutorialPanel tutorialPanel;
+	private GameManager gameManager;
+	
 	
 	public Control() {
-		player = new Player();
-		mainWindow = new MainWindow(player.getPlayer(), this);
-		tutorialPanel = new TutorialPanel(player.getPlayer(), this);
+		gameManager = new GameManager();
+		mainWindow = new MainWindow(gameManager.getPlayer().getPlayer(), gameManager.getGun().getGun(), gameManager.getBullets().getBullet(), this);
+		tutorialPanel = new TutorialPanel(gameManager.getPlayer().getPlayer(), gameManager.getGun().getGun(), gameManager.getBullets().getBullet(), this);
 	}
 
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -39,27 +41,31 @@ public class Control implements ActionListener, KeyListener{
 	public void keyPressed(KeyEvent e) {
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_LEFT:
-			System.out.println("Izq");
-			player.moveLeft();
-			tutorialPanel.repaintAll(player.getPlayer());
+			gameManager.moveLeft();
+			tutorialPanel.repaintAll(gameManager.getPlayer().getPlayer(), gameManager.getGun().getGun(), gameManager.getBullets().getBullet());
 			break;
 		case KeyEvent.VK_RIGHT:
-			System.out.println("Der");
-			player.moveRight();
-			tutorialPanel.repaintAll(player.getPlayer());
+			gameManager.moveRight();
+			tutorialPanel.repaintAll(gameManager.getPlayer().getPlayer(), gameManager.getGun().getGun(), gameManager.getBullets().getBullet());
 			break;
-		case KeyEvent.VK_SPACE:
-			System.out.println("Arriba");
-			player.moveUp();
-			tutorialPanel.repaintAll(player.getPlayer());
+		case KeyEvent.VK_UP:
+			gameManager.moveUp();
+			tutorialPanel.repaintAll(gameManager.getPlayer().getPlayer(), gameManager.getGun().getGun(), gameManager.getBullets().getBullet());
+			break;
+		case KeyEvent.VK_DOWN:
+			gameManager.moveDown();
+			tutorialPanel.repaintAll(gameManager.getPlayer().getPlayer(), gameManager.getGun().getGun(), gameManager.getBullets().getBullet());
 			break;
 		case KeyEvent.VK_Z:
-			
+			gameManager.shoot();
+			tutorialPanel.repaintAll(gameManager.getPlayer().getPlayer(), gameManager.getGun().getGun(), gameManager.getBullets().getBullet());
 			break;
 		default:
 			break;
 		}
 	}
+
+	
 
 	@Override
 	public void keyReleased(KeyEvent e) {
