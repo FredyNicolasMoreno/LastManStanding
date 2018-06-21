@@ -14,6 +14,7 @@ import controller.Control;
 public class Client extends Connection{
 
 	private String name;
+	private GameManager gameManager;
 
 	public Client(String ip, int port, String name) throws IOException{
 		super(ip, port);
@@ -23,10 +24,14 @@ public class Client extends Connection{
 	@Override
 	void executeTask() {
 		try {
-			String[] string = readResponse().split("#");
-			switch (string[0]) {
+			String string = readResponse();
+			switch (string) {
 			case "/message":
-				showMessage(string);
+//				showMessage(string);
+				break;
+			case "MULTIPLAYER":
+				send(String.valueOf(gameManager.getPlayer().getPlayer().getX()));
+				send(String.valueOf(gameManager.getPlayer().getPlayer().getY()));
 				break;
 			default:
 				break;
@@ -34,12 +39,12 @@ public class Client extends Connection{
 		} catch (IOException e) {
 		}
 	}
-
-	private void showMessage(String[] string) {
-		if (!string[1].equals(name)) {
-//			Controller.showMessage(string);
-		}
-	}
+//
+//	private void showMessage(String[] string) {
+//		if (!string[1].equals(name)) {
+////			Controller.showMessage(string);
+//		}
+//	}
 
 	public void saveFile() {
 		try{
@@ -62,6 +67,10 @@ public class Client extends Connection{
 
 	public String getName() {
 		return name;
+	}
+	
+	public void setGame(GameManager game) {
+		this.gameManager = game;
 	}
 
 }

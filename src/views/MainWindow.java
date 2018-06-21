@@ -21,8 +21,6 @@ public class MainWindow extends JFrame{
 		menuPanel = new MenuPanel(control);
 
 		add(menuPanel);
-		
-		setVisible(true);
 	}
 	
 	
