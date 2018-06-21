@@ -39,6 +39,8 @@ public class MenuPanel extends JPanel{
 		
 		JButton multiPlayer = new JButton("MultiPlayer");
 		multiPlayer.setBorderPainted(false);
+		multiPlayer.addActionListener(control);
+		multiPlayer.setActionCommand(Actions.MULTIPLAYER.toString());
 		multiPlayer.setFont(new Font("Agency FB", Font.BOLD, 40));
 		multiPlayer.setBackground(new Color(110, 34, 0));
 		multiPlayer.setForeground(new Color(0,168,165));

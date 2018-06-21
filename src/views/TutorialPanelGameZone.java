@@ -21,7 +21,7 @@ public class TutorialPanelGameZone extends JPanel{
 		setBackground(Color.BLACK);
 		player = new Rectangle(playerLL.x, playerLL.y, playerLL.width, playerLL.height);
 		guns = new Rectangle(gun.x, gun.y, gun.width, gun.height);
-		bullets = new Rectangle(bullets.x, bullets.y, bullets.width, bullets.height);
+		bullet = new Rectangle(bullets.x, bullets.y, bullets.width, bullets.height);
 	}
 	
 	public void paint(Graphics g) {

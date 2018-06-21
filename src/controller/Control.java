@@ -5,21 +5,35 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.Timer;
+
 import models.GameManager;
 import views.MainWindow;
+import views.MultiplayerWindow;
 import views.TutorialPanel;
 
 public class Control implements ActionListener, KeyListener{
 
 	private MainWindow mainWindow;
 	private TutorialPanel tutorialPanel;
+	private MultiplayerWindow gameWindow;
 	private GameManager gameManager;
 	
 	
 	public Control() {
-		gameManager = new GameManager();
+		gameManager = new GameManager(30);
 		mainWindow = new MainWindow(gameManager.getPlayer().getPlayer(), gameManager.getGun().getGun(), gameManager.getBullets().getBullet(), this);
 		tutorialPanel = new TutorialPanel(gameManager.getPlayer().getPlayer(), gameManager.getGun().getGun(), gameManager.getBullets().getBullet(), this);
+		gameWindow = new MultiplayerWindow(gameManager.getPlayer().getPlayer(), gameManager.getGun().getGun(), gameManager.getBullets().getBullet(), this);
+		Timer timer = new Timer(10, new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tutorialPanel.repaintAll(gameManager.getPlayer().getPlayer(), gameManager.getGun().getGun(), gameManager.getBullets().getBullet());
+				gameWindow.repaintWIndow(gameManager);
+			}
+		});
+		timer.start();
 	}
 
 	
@@ -31,7 +45,14 @@ public class Control implements ActionListener, KeyListener{
 			mainWindow.setVisible(false);
 			tutorialPanel.setVisible(true);
 			break;
-
+		case BACK:
+			mainWindow.setVisible(true);
+			tutorialPanel.setVisible(false);
+			break;
+		case MULTIPLAYER:
+			mainWindow.setVisible(false);
+			gameWindow.setVisible(true);
+			break;
 		default:
 			break;
 		}
@@ -42,23 +63,18 @@ public class Control implements ActionListener, KeyListener{
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_LEFT:
 			gameManager.moveLeft();
-			tutorialPanel.repaintAll(gameManager.getPlayer().getPlayer(), gameManager.getGun().getGun(), gameManager.getBullets().getBullet());
 			break;
 		case KeyEvent.VK_RIGHT:
 			gameManager.moveRight();
-			tutorialPanel.repaintAll(gameManager.getPlayer().getPlayer(), gameManager.getGun().getGun(), gameManager.getBullets().getBullet());
 			break;
 		case KeyEvent.VK_UP:
 			gameManager.moveUp();
-			tutorialPanel.repaintAll(gameManager.getPlayer().getPlayer(), gameManager.getGun().getGun(), gameManager.getBullets().getBullet());
 			break;
 		case KeyEvent.VK_DOWN:
 			gameManager.moveDown();
-			tutorialPanel.repaintAll(gameManager.getPlayer().getPlayer(), gameManager.getGun().getGun(), gameManager.getBullets().getBullet());
 			break;
 		case KeyEvent.VK_Z:
-			gameManager.shoot();
-			tutorialPanel.repaintAll(gameManager.getPlayer().getPlayer(), gameManager.getGun().getGun(), gameManager.getBullets().getBullet());
+			gameManager.addBullets();
 			break;
 		default:
 			break;

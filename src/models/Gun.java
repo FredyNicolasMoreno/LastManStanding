@@ -8,7 +8,7 @@ public class Gun {
 	private Rectangle gun;
 
 	public Gun() {
-		gun = new Rectangle(800, 320, 30, 30);
+		gun = new Rectangle(randomPosition(), randomPosition(), 30, 30);
 	}
 
 	public void move(Rectangle player, int viewX, int viewY) {
@@ -18,4 +18,9 @@ public class Gun {
 	public Rectangle getGun() {
 		return gun;
 	}
+	
+	private int randomPosition() {
+		return (int) (Math.random()*1000);
+	}
 }
+ 

@@ -3,20 +3,29 @@ package models;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
-public class GameManager {
+import views.MultiplayerWindow;
+
+public class GameManager extends GameThread{
 
 	private Gun gun;
 	private Player player;
 	private Bullets bullet;
 	private ArrayList<Bullets> bullets;
+	private MultiplayerWindow multiplayerWindow;
 	private boolean got = false;
 	private boolean impact = false;
+	private boolean viewLeft = false;
+	private boolean viewRigth = false;
+	private boolean viewUp = false;
+	private boolean viewDown = false;
 	
-	public GameManager() {
+	public GameManager(int sleep) {
+		super(sleep);
 		player = new Player();
 		gun = new Gun();
 		bullets = new ArrayList<Bullets>();
 		bullet = new Bullets(gun.getGun().x, gun.getGun().y);
+		start();
 	}
 	
 	
@@ -71,21 +80,48 @@ public class GameManager {
 	}
 	
 	public void shoot() {
-		bullet = new Bullets(gun.getGun().x, gun.getGun().y);
-		bullets.add(bullet);
-		bulletImpact(bullet.getBullet());
-		if(gun.getGun().x > bullet.getBullet().x) {
-			while (!impact) {
-				bullet.getBullet().setLocation(bullet.getBullet().x + 50, bullet.getBullet().y);
-			}
-		}else if(gun.getGun().x < bullet.getBullet().x) {
-			while (!impact) {
+		for (Bullets bullet : bullets) {
+			if(viewLeft) {
 				bullet.getBullet().setLocation(bullet.getBullet().x - 50, bullet.getBullet().y);
+			}else if(viewRigth){
+				bullet.getBullet().setLocation(bullet.getBullet().x + 50, bullet.getBullet().y);
+			}else if(viewUp) {
+				bullet.getBullet().setLocation(bullet.getBullet().x, bullet.getBullet().y - 50);
+			}else if(viewDown) {
+				bullet.getBullet().setLocation(bullet.getBullet().x, bullet.getBullet().y + 50);
+			}
+			if(bullet.getBullet().x > 1500 ||bullet.getBullet().x<0) {
+				bullet.getBullet().setLocation(8000, 8000);
+			}else if(bullet.getBullet().y > 1800 ||bullet.getBullet().y<0) {
+				bullet.getBullet().setLocation(8000, 8000);
 			}
 		}
-		System.out.println(impact);
 	}
 
+	public void addBullets() {
+		bullets.add(new Bullets((int)gun.getGun().x, gun.getGun().y));
+		if(gun.getGun().x > player.getPlayer().x) {
+			viewLeft = false;
+			viewRigth = true;
+			viewUp = false;
+			viewDown = false;
+		}else if(gun.getGun().x < player.getPlayer().x) {
+			viewLeft = true;
+			viewRigth = false;
+			viewUp = false;
+			viewDown = false;
+		}else if(gun.getGun().y < player.getPlayer().y) {
+			viewLeft = false;
+			viewRigth = false;
+			viewUp = true;
+			viewDown = false;
+		}else if(gun.getGun().y > player.getPlayer().y) {
+			viewLeft = false;
+			viewRigth = false;
+			viewUp = false;
+			viewDown = true;
+		}
+	}
 
 	public Gun getGun() {
 		return gun;
@@ -99,6 +135,16 @@ public class GameManager {
 
 	public Bullets getBullets() {
 		return bullet;
+	}
+
+	public ArrayList<Bullets> getArrayBullets(){
+		return bullets;
+	}
+	
+
+	@Override
+	public void executeTask() {
+		shoot();
 	}
 
 

@@ -2,5 +2,5 @@ package controller;
 
 public enum Actions {
 
-	NEW_GAME
+	NEW_GAME, BACK, MULTIPLAYER, ACCEPT
 }
